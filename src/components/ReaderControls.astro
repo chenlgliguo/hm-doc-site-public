@@ -1,0 +1,33 @@
+<section class="reader-controls" aria-label="阅读增强工具">
+  <div class="reader-controls__search">
+    <div class="reader-controls__header">
+      <p class="reader-controls__eyebrow">Search</p>
+      <label for="content-search">正文搜索</label>
+    </div>
+    <input
+      id="content-search"
+      type="search"
+      placeholder="输入关键词定位正文内容"
+      autocomplete="off"
+    />
+    <p id="content-search-status" class="reader-controls__status">
+      输入关键词后可高亮匹配段落并自动展开对应分类
+    </p>
+    <label class="reader-controls__toggle-option" for="match-only-toggle">
+      <input id="match-only-toggle" type="checkbox" />
+      <span>只看命中分类</span>
+    </label>
+  </div>
+
+  <div class="reader-controls__actions">
+    <div class="reader-controls__header">
+      <p class="reader-controls__eyebrow">Controls</p>
+      <p class="reader-controls__caption">快速调整当前文档的阅读状态与浏览节奏。</p>
+    </div>
+    <button id="prev-result" type="button">上一个结果</button>
+    <button id="next-result" type="button">下一个结果</button>
+    <button id="expand-all" type="button">展开全部分类</button>
+    <button id="collapse-all" type="button">收起分类</button>
+    <button id="jump-first-result" type="button">跳到首个结果</button>
+  </div>
+</section>

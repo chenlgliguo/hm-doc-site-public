@@ -1,0 +1,50 @@
+---
+import rawAppScript from "../prototype-assets/app.js?raw";
+import stylesContent from "../prototype-assets/styles.css?raw";
+import ContentToolbar from "./ContentToolbar.astro";
+import PrototypeContentArea from "./PrototypeContentArea.astro";
+import PrototypeHero from "./PrototypeHero.astro";
+import PrototypeSidebar from "./PrototypeSidebar.astro";
+import ReaderControls from "./ReaderControls.astro";
+import SectionFilters from "./SectionFilters.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+interface Props {
+  title: string;
+  summary: string;
+  markdownContent: string;
+}
+
+const { title, summary, markdownContent } = Astro.props;
+
+const appScriptContent = rawAppScript
+  .replace(
+    'const markdownPath = "../management_evaluation_indicators_pro_v3_2.md";',
+    'const markdownPath = "/management_evaluation_indicators_pro_v3_2.md";\nconst inlineMarkdown = window.__MARKDOWN_CONTENT__ || "";'
+  )
+  .replace(
+    "  const response = await fetch(markdownPath);\n  if (!response.ok) {\n    throw new Error(`Failed to load markdown: ${response.status}`);\n  }\n\n  const markdown = await response.text();",
+    '  const markdown = inlineMarkdown || await fetch(markdownPath).then((response) => {\n    if (!response.ok) {\n      throw new Error(`Failed to load markdown: ${response.status}`);\n    }\n    return response.text();\n  });'
+  );
+---
+
+<BaseLayout title={`${title} - Astro 原型`} description={summary}>
+  <style is:global set:html={stylesContent}></style>
+
+  <div class="app-shell">
+    <PrototypeSidebar />
+
+    <main class="main">
+      <PrototypeHero />
+      <SectionFilters />
+      <ContentToolbar />
+      <ReaderControls />
+      <PrototypeContentArea />
+    </main>
+  </div>
+
+  <script is:inline define:vars={{ markdownContent }}>
+    window.__MARKDOWN_CONTENT__ = markdownContent;
+  </script>
+  <script type="module" is:inline set:html={appScriptContent}></script>
+</BaseLayout>

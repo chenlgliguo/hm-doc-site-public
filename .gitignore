@@ -1,0 +1,30 @@
+# Node / Astro
+node_modules/
+dist/
+.astro/
+.vercel/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Local archives and temporary outputs
+archives/
+tmp/
+temp/

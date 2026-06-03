@@ -1,0 +1,185 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "管理人员评价指标体系 Astro 原型页面" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f5f7;
+        --panel: rgba(255, 255, 255, 0.76);
+        --panel-strong: rgba(255, 255, 255, 0.92);
+        --border: rgba(15, 23, 42, 0.08);
+        --text: #1d1d1f;
+        --muted: #6e6e73;
+        --primary: #0071e3;
+        --shadow: 0 24px 60px rgba(15, 23, 42, 0.1);
+        --shadow-soft: 0 12px 40px rgba(15, 23, 42, 0.08);
+        --radius: 28px;
+      }
+
+      * { box-sizing: border-box; }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "SF Pro Display", "SF Pro Text", "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(171, 205, 255, 0.55), transparent 28%),
+          radial-gradient(circle at top right, rgba(221, 231, 255, 0.72), transparent 34%),
+          linear-gradient(180deg, #fbfbfd 0%, #f3f4f8 52%, #f5f5f7 100%);
+        color: var(--text);
+      }
+      body::before,
+      body::after {
+        content: "";
+        position: fixed;
+        z-index: -1;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        filter: blur(72px);
+        opacity: 0.34;
+        pointer-events: none;
+      }
+      body::before {
+        top: -150px;
+        left: -120px;
+        background: rgba(88, 86, 214, 0.18);
+      }
+      body::after {
+        right: -140px;
+        bottom: -160px;
+        background: rgba(0, 113, 227, 0.16);
+      }
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+      a:hover { text-decoration: underline; }
+      .shell {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 26px 18px 56px;
+      }
+      .hero,
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+      }
+      .hero {
+        position: relative;
+        overflow: hidden;
+        padding: 42px 40px;
+        box-shadow: var(--shadow);
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: -80px;
+        right: -10px;
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(0, 113, 227, 0.15), transparent 65%);
+        pointer-events: none;
+      }
+      .eyebrow {
+        margin: 0 0 10px;
+        color: var(--primary);
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .hero h1 {
+        margin: 0 0 14px;
+        font-size: clamp(2.4rem, 5vw, 4.7rem);
+        line-height: 0.98;
+        letter-spacing: -0.05em;
+      }
+      .hero p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 1.04rem;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 24px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 18px;
+        border-radius: 999px;
+        border: 1px solid rgba(0, 113, 227, 0.12);
+        background: linear-gradient(180deg, #1493ff, #0071e3);
+        color: #fff;
+        font-weight: 700;
+        box-shadow: 0 16px 30px rgba(0, 113, 227, 0.2);
+      }
+      .button--secondary {
+        border-color: var(--border);
+        background: rgba(255, 255, 255, 0.84);
+        color: var(--text);
+        box-shadow: none;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 22px;
+      }
+      .panel {
+        padding: 24px 24px;
+      }
+      .panel h2 {
+        margin: 0 0 10px;
+        font-size: 1.12rem;
+        letter-spacing: -0.02em;
+      }
+      .panel p, .panel li {
+        color: var(--muted);
+        line-height: 1.75;
+      }
+      .panel ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+      @media (max-width: 800px) {
+        .grid { grid-template-columns: 1fr; }
+        .shell { padding: 14px 12px 36px; }
+        .hero {
+          padding: 28px 22px;
+        }
+        .hero h1 {
+          font-size: clamp(2.1rem, 10vw, 3rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

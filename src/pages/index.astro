@@ -1,0 +1,249 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const documents = await getCollection("documents");
+---
+
+<BaseLayout
+  title="HM 文档站原型"
+  description="基于 Astro Content Collections 的 HM 文档站原型入口页"
+>
+  <main class="shell">
+    <section class="hero">
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Knowledge Product Prototype</p>
+          <h1>把复杂文档，打磨成像产品一样可阅读的内容体验。</h1>
+          <p class="hero__lede">
+            当前站点已把 `documents` 内容集合接入 Astro，并为核心文档建立了可搜索、可折叠、可筛选的单页阅读体验，适合作为后续文档站的设计基线。
+          </p>
+          <div class="actions">
+            <a class="button" href="/prototype">打开管理人员评价指标体系原型</a>
+            <a class="button button--secondary" href="file:///e:/HM/management_evaluation_indicators_pro_v3_2.md">
+              查看本地 Markdown 文件
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__spotlight">
+          <div class="spotlight-card">
+            <p class="spotlight-card__label">当前状态</p>
+            <p class="spotlight-card__value">{documents.length}</p>
+            <p class="spotlight-card__hint">篇文档已接入内容集合</p>
+          </div>
+          <div class="spotlight-card">
+            <p class="spotlight-card__label">阅读体验</p>
+            <p class="spotlight-card__value">单页长文</p>
+            <p class="spotlight-card__hint">支持目录搜索、正文检索与分类折叠</p>
+          </div>
+          <div class="spotlight-card spotlight-card--wide">
+            <p class="spotlight-card__label">推荐浏览路径</p>
+            <p class="spotlight-card__hint">
+              先从管理人员评价指标体系原型页进入，确认内容结构与交互方式，再逐步扩展更多文档集合内容。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <h2>当前已接入</h2>
+        <ul>
+          <li>Astro 项目骨架</li>
+          <li>原型页面路由 `/prototype`</li>
+          <li>接入 Astro Content Collections</li>
+          <li>内联接入原型交互脚本与样式</li>
+        </ul>
+      </article>
+
+      <article class="panel">
+        <h2>体验方向</h2>
+        <ul>
+          <li>统一首页、详情页与原型页的视觉语言</li>
+          <li>为每篇文档生成独立详情路由并建立目录体系</li>
+          <li>扩展多文档栏目页、专题页和卡片化入口</li>
+          <li>逐步补全文搜索、标签和分类数据层</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="panel documents-panel">
+      <div class="documents-panel__head">
+        <div>
+          <h2>已接入文档</h2>
+          <p>当前共接入 {documents.length} 篇 `documents` 集合内容，所有卡片都指向正式文档路由。</p>
+        </div>
+      </div>
+
+      <div class="documents-list">
+        {documents.map((entry) => {
+          const detailHref = `/documents/${entry.data.slug}`;
+
+          return (
+            <article class="document-card">
+              <div class="document-card__meta">
+                <span>{entry.data.section}</span>
+                <span>{entry.data.version}</span>
+                <span>{entry.data.audience}</span>
+              </div>
+              <h3>{entry.data.title}</h3>
+              <p>{entry.data.summary}</p>
+              <div class="document-card__tags">
+                {entry.data.tags.map((tag) => (
+                  <span>{tag}</span>
+                ))}
+              </div>
+              <div class="document-card__footer">
+                <span>源文件：{entry.data.sourceFile}</span>
+                <a class="button" href={detailHref}>打开文档页</a>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .hero__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .hero__copy {
+    max-width: 760px;
+  }
+
+  .hero__lede {
+    max-width: 760px;
+  }
+
+  .hero__spotlight {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .spotlight-card {
+    padding: 18px 18px 16px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.74);
+    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.07);
+  }
+
+  .spotlight-card--wide {
+    grid-column: 1 / -1;
+  }
+
+  .spotlight-card__label {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .spotlight-card__value {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .spotlight-card__hint {
+    margin: 10px 0 0;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .documents-panel {
+    margin-top: 22px;
+  }
+
+  .documents-panel__head h2 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+  }
+
+  .documents-panel__head p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .documents-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+  }
+
+  .document-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 22px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  .document-card h3 {
+    margin: 0;
+    font-size: 1.16rem;
+    letter-spacing: -0.02em;
+  }
+
+  .document-card p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+
+  .document-card__meta,
+  .document-card__tags,
+  .document-card__footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .document-card__meta span,
+  .document-card__tags span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 11px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    color: #515154;
+    font-size: 0.85rem;
+  }
+
+  .document-card__footer {
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 980px) {
+    .hero__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

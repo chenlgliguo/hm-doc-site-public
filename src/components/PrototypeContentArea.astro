@@ -1,0 +1,41 @@
+<section id="selection-cart" class="selection-cart" aria-label="已选清单">
+  <div class="selection-cart__header">
+    <div>
+      <p class="selection-cart__eyebrow">Selection List</p>
+      <h3>
+        已选内容清单
+        <span id="selection-cart-count" class="selection-cart__count">0</span>
+      </h3>
+      <p id="selection-cart-status" class="selection-cart__status">还没有加入任何小项，可在正文中逐条点选。</p>
+    </div>
+    <div class="selection-cart__actions">
+      <button id="selection-cart-toggle" type="button">收起</button>
+      <button id="selection-cart-export-txt" type="button">导出 TXT</button>
+      <button id="selection-cart-export-json" type="button">导出 JSON</button>
+      <button id="selection-cart-clear" type="button">清空列表</button>
+    </div>
+  </div>
+  <ol id="selection-cart-list" class="selection-cart__list"></ol>
+</section>
+
+<section id="render-status" class="notice notice--loading">
+  正在解析 Markdown...
+</section>
+
+<section class="content-frame" aria-label="阅读容器说明">
+  <div class="content-frame__header">
+    <div>
+      <p class="content-frame__eyebrow">Reading Canvas</p>
+      <h3>长文阅读区</h3>
+    </div>
+    <p class="content-frame__summary">正文会按标题层级重组，支持锚点跳转、分类折叠和命中高亮。</p>
+  </div>
+</section>
+
+<article id="content" class="content" aria-live="polite"></article>
+
+<template id="toc-item-template">
+  <li class="toc__item">
+    <a class="toc__link" href="#"></a>
+  </li>
+</template>

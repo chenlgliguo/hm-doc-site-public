@@ -1,0 +1,15 @@
+HM 文档站项目
+Copyright 2026 HM Contributors
+
+This product includes software and project assets developed by HM Contributors.
+
+Repository scope includes:
+- source documents under the project workspace
+- document conversion and update scripts
+- prototype assets for interaction validation
+- Astro website source code and deployment configuration
+
+Licensed under the Apache License, Version 2.0.
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0

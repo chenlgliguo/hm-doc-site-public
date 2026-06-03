@@ -1,0 +1,19 @@
+---
+import { getEntry } from "astro:content";
+import DocumentPrototypePage from "../components/DocumentPrototypePage.astro";
+
+const documentEntry = await getEntry(
+  "documents",
+  "management_evaluation_indicators_pro_v3_2"
+);
+
+if (!documentEntry) {
+  throw new Error("未找到 documents 集合中的 management_evaluation_indicators_pro_v3_2");
+}
+---
+
+<DocumentPrototypePage
+  title={documentEntry.data.title}
+  summary={documentEntry.data.summary}
+  markdownContent={documentEntry.body}
+/>

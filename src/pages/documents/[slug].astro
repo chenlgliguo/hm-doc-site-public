@@ -1,0 +1,21 @@
+---
+import { getCollection } from "astro:content";
+import DocumentPrototypePage from "../../components/DocumentPrototypePage.astro";
+
+export async function getStaticPaths() {
+  const documents = await getCollection("documents");
+
+  return documents.map((documentEntry) => ({
+    params: { slug: documentEntry.data.slug },
+    props: { documentEntry },
+  }));
+}
+
+const { documentEntry } = Astro.props;
+---
+
+<DocumentPrototypePage
+  title={documentEntry.data.title}
+  summary={documentEntry.data.summary}
+  markdownContent={documentEntry.body}
+/>

@@ -1,0 +1,25 @@
+* text=auto
+
+# Source code and docs
+*.md text eol=lf
+*.txt text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.astro text eol=lf
+*.mjs text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.py text eol=lf
+*.ps1 text eol=lf
+LICENSE text eol=lf
+NOTICE text eol=lf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.pdf binary
+*.docx binary
