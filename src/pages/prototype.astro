@@ -1,14 +1,13 @@
----
-import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import DocumentPrototypePage from "../components/DocumentPrototypePage.astro";
 
-const documentEntry = await getEntry(
-  "documents",
-  "management_evaluation_indicators_pro_v3_2"
+const documents = await getCollection("documents");
+const documentEntry = documents.find(
+  (entry) => entry.data.slug === "management-evaluation-pro-v3-2"
 );
 
 if (!documentEntry) {
-  throw new Error("未找到 documents 集合中的 management_evaluation_indicators_pro_v3_2");
+  throw new Error("未找到 slug 为 management-evaluation-pro-v3-2 的 documents 文档");
 }
 ---
 
